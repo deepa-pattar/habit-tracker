@@ -1,29 +1,18 @@
-import { useState } from "react";
-
-type Habit = {
-    id: string,
-    title: string,
-    completed: boolean
+interface AddHabitFormProps {
+    habit: string;
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>)=> void
+    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
-const AddHabitForm = () => {
-    const [state, setState] = useState<string>('')
-    const [habitList, setHabitList] = useState<Habit[]>([])
-    const submitHandler = (event: React.FormEvent<HTMLFormElement>) =>{
-        event.preventDefault();
-        setHabitList((prev)=> [...prev, { id: crypto.randomUUID(), title: state, completed: false}]);
-        setState("")
-    }
+
+const AddHabitForm = ({handleChange, handleSubmit, habit}: AddHabitFormProps) => {
     return ( 
         <>
-        <form onSubmit={submitHandler}>
-            <input type ="text" value={state} onChange={(e)=> setState(e.target.value)}/>
+        <form onSubmit={handleSubmit}>
+            <input type ="text" value={habit} onChange={handleChange}/>
             <button type="submit">Add Habit</button>
         </form>
 
-        <div>{habitList.map((item)=> <div key={item.id}>
-        <div>{item.title}</div>
-        <div>{item.completed ? 'Done' : 'To Do'}</div></div>)}</div>
         </>
      );
 }

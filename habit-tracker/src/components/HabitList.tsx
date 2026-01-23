@@ -1,9 +1,16 @@
-const HabitList = () => {
+import HabitCard from "./HabitCard";
+import { Habit } from '../App'
+
+interface HabitListProps {
+   habitList : Habit[]
+}
+const HabitList = ({ habitList }: HabitListProps) => {
     return ( 
         <div>
-            <li>Reading</li>
-            <li>Walking</li>
+            {habitList.map((habit)=> <HabitCard habit={habit} />)}
         </div>
+
+        
      );
 }
  
